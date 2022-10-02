@@ -7,7 +7,7 @@ slovar_drzav = {"Slovenija":"LJUBLJANA", "Avstrija":"DUNAJ", "Nemčija":"BERLIN"
 def pozeni_vmesnik():
     print("Dobrodošli v GeoQuiz")
     print("===========================")
-    igra = Igra(0)
+    igra = Igra()
     seznam_drzav = Igra.pridobi_drzave(slovar_drzav)
     for i in range(2):
         print("drzava")
@@ -19,7 +19,7 @@ def pozeni_vmesnik():
         else:
             print("napacen odgovor")
 
-    print(f"Stevilo pravilnih je {igra.pravilni!r}")
+    print(f"Stevilo pravilnih je {igra.stevilo_pravilnih!r}")
     
         
 

@@ -2,9 +2,8 @@
 import random
 
 class Igra:
-    def __init__(self, pravilni):
-        #self.stopnja = stopnja
-        self.pravilni = pravilni
+    def __init__(self):
+        self.pravilni = 0
 
     def nova_igra():
         pass
@@ -16,12 +15,16 @@ class Igra:
         sez_indeksov = [random.randint(0, stevilo_drzav -1) for i in range(2)]
         return [seznam_drzav[i] for i in sez_indeksov]
 
+    
     def preveri_odgovor(self, odgovor, slovar_drzav, drzava):
         odgovor = odgovor.upper()
         if odgovor == slovar_drzav[drzava]:
-            #self.pravilni = self.pravilni + 1
-            return True
-        return False
+            return 1
+        return 0
+
+    def stevilo_pravilnih(self, odgovor, slovar_drzav, drzava):
+        for i in range(len(slovar_drzav)):
+            self.pravilni += Igra.preveri_odgovor(self, odgovor, slovar_drzav, drzava)
 
 
 
