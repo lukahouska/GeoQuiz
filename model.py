@@ -1,7 +1,7 @@
 # model za projektno
 import random
 
-class Igra:
+class Igra1:
     def __init__(self):
         self.pravilni = 0
 
@@ -22,9 +22,7 @@ class Igra:
             return 1
         return 0
 
-    def stevilo_pravilnih(self, odgovor, slovar_drzav, drzava):
-        for i in range(len(slovar_drzav)):
-            self.pravilni += Igra.preveri_odgovor(self, odgovor, slovar_drzav, drzava)
+    
 
 
 
