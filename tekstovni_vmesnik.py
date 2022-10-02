@@ -19,7 +19,7 @@ def pozeni_vmesnik():
         else:
             print("napacen odgovor")
 
-    print("Stevilo pravilnih je {igra.pravilni!r}")
+    print(f"Stevilo pravilnih je {igra.pravilni!r}")
     
         
 
