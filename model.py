@@ -12,17 +12,20 @@ class Igra1:
     def pridobi_drzave(slovar):
         seznam_drzav = list(slovar.keys())
         stevilo_drzav = len(seznam_drzav)
-        sez_indeksov = [random.randint(0, stevilo_drzav -1) for i in range(2)]
-        return [seznam_drzav[i] for i in sez_indeksov]
+        while len(seznam_drzav) > 10:
+            a = random.randint(0, stevilo_drzav -1)
+            seznam_drzav.pop(a)
+        return seznam_drzav
 
     
     def preveri_odgovor(self, odgovor, slovar_drzav, drzava):
         odgovor = odgovor.upper()
         if odgovor == slovar_drzav[drzava]:
-            return 1
-        return 0
+            return True
+        return False
 
     
+
 
 
 
