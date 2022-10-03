@@ -15,6 +15,7 @@ class Igra1:
         while len(seznam_drzav) > 10:
             a = random.randint(0, stevilo_drzav -1)
             seznam_drzav.pop(a)
+            stevilo_drzav -= 1
         return seznam_drzav
 
     
