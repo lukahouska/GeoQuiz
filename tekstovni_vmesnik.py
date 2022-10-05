@@ -17,28 +17,35 @@ def pozeni_vmesnik():
 
 #nova stran
     print("LEVEL 1")
-    print("\nMed štirimi možnimi odgovori državi določite pripadajoče glavno mesto.")
+    print("\nMed štirimi možnimi odgovori glavnemu mestu določite pripadajočo državo. Vtipkajte le črko pred vašim odgovorom.")
 
 
     igra1 = Igra1(0)
     seznam_drzav = Igra1.pridobi_drzave(slovar_drzav)
-    #stevilo_pravilnih = 0
-    #skupne_tocke = 0
+    mesta = list(slovar_drzav.values())
     for i in range(10):
-        print("drzava:" + seznam_drzav[i])
-        odgovor = input("glavno mesto:")
-        pravilnost = Igra1.preveri_odgovor(igra1, odgovor, slovar_drzav, seznam_drzav[i])
-        if pravilnost:
-            #stevilo_pravilnih += 1
-            igra1.pravilni += 1
-            kviz.skupne_tocke += 1
-            print("Pravilen odgovor")
+        print("glavno mesto:" + slovar_drzav[seznam_drzav[10][i]])
+        for k in range(len(seznam_drzav[0])):
+            print(seznam_drzav[i][k])
+        odgovor = input("odgovor:")
+        if odgovor not in 'abcd':
+            print("Prosim odgovorite z eno od črk a, b, c, d ")
+            print(seznam_drzav[i][k])
+            odgovor = input("odgovor:")
         else:
-            print("Napačen odgovor")
+            for j in range(10):
+                for crka, drzava in seznam_drzav[j]:
+                    if crka == odgovor and drzava == seznam_drzav[10][j]:
+                        igra1.pravilni += 1
+                        kviz.skupne_tocke += 1
+                        print("Pravilen odgovor")
+                    else:
+                        print("Napačen odgovor")
     if igra1.pravilni >= 9:
         print(f"Pravilno ste odgovorili na {igra1.pravilni!r}/10 vprašanj.")
     else:
         print(f"Pravilno ste odgovorili na {igra1.pravilni!r}/10 vprašanj. Na žalost to ni dovolj za naslednji nivo.")
+    
         
 
 #nova stran
@@ -71,7 +78,7 @@ def pozeni_vmesnik():
     elif 10 <= kviz.skupne_tocke <= 15:
         print(f"Soliden rezultat vendar zmorete bolje. Skupaj ste zbrali {kviz.skupne_tocke!r} točk.\nNa prvi strani si lahko pogledate na katero mesto vas to uvršča.")
     elif kviz.skupne_tocke > 15:
-        print(f"Odlično! Skupaj ste zbrali {kviz.skupne_tocke!r} točk.\nNa prvi strani si lahko pogledate na katero mesto vas to uvršča.")
+        print(f"Odličen rezultat! Skupaj ste zbrali {kviz.skupne_tocke!r} točk.\nNa prvi strani si lahko pogledate na katero mesto vas to uvršča.")
         
 
 

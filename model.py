@@ -1,5 +1,6 @@
 # model za projektno
 import random
+from string import ascii_lowercase
 
 
 class Kviz:
@@ -14,6 +15,8 @@ class Igra1:
         seznam_drzav = list(slovar.keys())
         stevilo_drzav = len(seznam_drzav)
         nabor = []
+        koncni_nabor = []
+        pravilne_drzave = []
         while len(seznam_drzav) > 10:
             a = random.randint(0, stevilo_drzav -1)
             seznam_drzav.pop(a)
@@ -31,14 +34,19 @@ class Igra1:
             nabor_moznosti.extend(seznam_drzav1)
             random.shuffle(nabor_moznosti)
             nabor.append(nabor_moznosti)
-        return nabor
+            pravilne_drzave.append(drzava)
+        for sez in nabor:
+            sez1 = list(zip(ascii_lowercase, sez))
+            koncni_nabor.append(sez1)
+        koncni_nabor.append(pravilne_drzave)
+        return koncni_nabor
+
+
+Igra1.pridobi_drzave({"Slovenija":"LJUBLJANA", "Avstrija":"DUNAJ", "Nemčija":"BERLIN", "Francija":"PARIZ",
+ "Italija":"RIM", "Španija":"MADRID", "Poljska":"VARŠAVA", "Romunija":"BUKAREŠTA", "Nizozemska":"AMSTERDAM", 
+ "Belgija":"BRUSELJ", "Grčija":"ATENE", "Češka":"PRAGA"})
+
         
-
-
-
-
-
-
 
 
 
