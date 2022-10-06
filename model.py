@@ -1,11 +1,49 @@
 # model za projektno
 import random
 from string import ascii_lowercase
+import json
+
+class Uporabnik:
+    def __init__(self, uporabnisko_ime, zasifrirano_geslo,skupne_tocke):
+        self.uporabnisko_ime = uporabnisko_ime
+        self.zasifrirano_geslo = zasifrirano_geslo
+        self.skupne_tocke = skupne_tocke
+
+    def v_slovar(self):
+        return {
+            'uporabnisko_ime': self.uporabnisko_ime,
+            'zasifrirano_geslo': self.zasifrirano_geslo,
+            'skupne točke': self.skupne_tocke
+        }
+    
+    def shrani_stanje(self, ime_datoteke):
+        with open(ime_datoteke, 'w') as datoteka:
+            json.dump(self.v_slovar(), datoteka, ensure_ascii=False, indent=4)
+
+
+    @classmethod
+    def nalozi_stanje(cls, ime_datoteke):
+        with open(ime_datoteke) as datoteka:
+            slovar_stanja = json.load(datoteka)
+            uporabnisko_ime = slovar_stanja['uporabnisko_ime']
+            zasifrirano_geslo = slovar_stanja['zasifrirano_geslo']
+            skupne_tocke = slovar_stanja['skupne_tocke']
+            return cls(uporabnisko_ime, zasifrirano_geslo, skupne_tocke)
+
+    def preveri_geslo(self, zasifrirano_geslo):
+        if self.zasifrirano_geslo != zasifrirano_geslo:
+            raise ValueError('Napačno geslo!')
+        else:
+            return True
+
+
+
 
 
 class Kviz:
     def __init__(self, skupne_tocke):
         self.skupne_tocke = skupne_tocke
+
 
 class Igra1:
     def __init__(self, pravilni):
@@ -40,14 +78,6 @@ class Igra1:
             koncni_nabor.append(sez1)
         koncni_nabor.append(pravilne_drzave)
         return koncni_nabor
-
-
-Igra1.pridobi_drzave({"Slovenija":"LJUBLJANA", "Avstrija":"DUNAJ", "Nemčija":"BERLIN", "Francija":"PARIZ",
- "Italija":"RIM", "Španija":"MADRID", "Poljska":"VARŠAVA", "Romunija":"BUKAREŠTA", "Nizozemska":"AMSTERDAM", 
- "Belgija":"BRUSELJ", "Grčija":"ATENE", "Češka":"PRAGA"})
-
-        
-
 
 
 
