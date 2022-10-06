@@ -34,8 +34,8 @@ def pozeni_vmesnik():
             for k in range(len(seznam_drzav[0])):
                 print(seznam_drzav[i][k])
             odgovor = input("odgovor:")
+            stevilo_pravilnih = 0
             for crka, drzava in seznam_drzav[i]:
-                stevilo_pravilnih = 0
                 if crka == odgovor and drzava == seznam_drzav[10][i]:
                     igra1.pravilni += 1
                     kviz.skupne_tocke += 1
@@ -45,8 +45,8 @@ def pozeni_vmesnik():
             else:
                 print("Napačen odgovor")
         else:
+            stevilo_pravilnih = 0
             for crka, drzava in seznam_drzav[i]:
-                stevilo_pravilnih = 0
                 if crka == odgovor and drzava == seznam_drzav[10][i]:
                     igra1.pravilni += 1
                     kviz.skupne_tocke += 1
