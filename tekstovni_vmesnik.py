@@ -30,17 +30,32 @@ def pozeni_vmesnik():
         odgovor = input("odgovor:")
         if odgovor not in 'abcd':
             print("Prosim odgovorite z eno od črk a, b, c, d ")
-            print(seznam_drzav[i][k])
+            print("glavno mesto:" + slovar_drzav[seznam_drzav[10][i]])
+            for k in range(len(seznam_drzav[0])):
+                print(seznam_drzav[i][k])
             odgovor = input("odgovor:")
+            for crka, drzava in seznam_drzav[i]:
+                stevilo_pravilnih = 0
+                if crka == odgovor and drzava == seznam_drzav[10][i]:
+                    igra1.pravilni += 1
+                    kviz.skupne_tocke += 1
+                    stevilo_pravilnih += 1
+            if stevilo_pravilnih == 1:
+                print("Pravilen odgovor")
+            else:
+                print("Napačen odgovor")
         else:
-            for j in range(10):
-                for crka, drzava in seznam_drzav[j]:
-                    if crka == odgovor and drzava == seznam_drzav[10][j]:
-                        igra1.pravilni += 1
-                        kviz.skupne_tocke += 1
-                        print("Pravilen odgovor")
-                    else:
-                        print("Napačen odgovor")
+            for crka, drzava in seznam_drzav[i]:
+                stevilo_pravilnih = 0
+                if crka == odgovor and drzava == seznam_drzav[10][i]:
+                    igra1.pravilni += 1
+                    kviz.skupne_tocke += 1
+                    stevilo_pravilnih += 1
+            if stevilo_pravilnih == 1:
+                print("Pravilen odgovor")
+            else:
+                print("Napačen odgovor")
+    
     if igra1.pravilni >= 9:
         print(f"Pravilno ste odgovorili na {igra1.pravilni!r}/10 vprašanj.")
     else:
@@ -68,7 +83,7 @@ def pozeni_vmesnik():
                 print("Napačen odgovor")
             
         print(f"\nPravilno ste odgovorili na {igra2.pravilni!r}/10 vprašanj.")
-    elif igra2.pravilni < 9:
+    elif igra1.pravilni < 9:
         pass
 
 #level 3?
