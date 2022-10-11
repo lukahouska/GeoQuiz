@@ -70,7 +70,7 @@ def pozeni_vmesnik():
 
         igra2 = Igra2(0)
         seznam_drzav = Igra2.pridobi_drzave(slovar_drzav)
-        #stevilo_pravilnih = 0
+        stevilo_pravilnih = 0
         for i in range(10):
             print("drzava:" + seznam_drzav[i])
             odgovor = input("glavno mesto:")
