@@ -1,0 +1,30 @@
+<!doctype html>
+% rebase('base.html')
+% from model import Igra1, Igra2, Kviz
+
+%with open('slovar_drzav.json', 'r') as datoteka:
+    % slovar_drzav = datoteka.read()
+    % seznam_naborov, pravilne = Igra1.pridobi_drzave(slovar_drzav)
+
+
+<div style="text-align:center">
+<h1>LEVEL 1</h1>
+</div>
+
+<div style="text-align:center">
+<p>
+    Med štirimi možnimi odgovori glavnemu mestu določite pripadajočo državo. Vtipkajte le črko pred vašim odgovorom.
+</p>
+</div>
+
+%for i in range(10):
+    %pravilna_drzava = pravilne[i]
+    %mesto = slovar['pravilna_drzava']
+<div class="container">
+    <table>
+        <tr>
+            <td>{{mesto}}</td>
+        </tr>
+    </table>
+    
+</div>

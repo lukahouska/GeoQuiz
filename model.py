@@ -13,7 +13,7 @@ class Uporabnik:
         return {
             'uporabnisko_ime': self.uporabnisko_ime,
             'zasifrirano_geslo': self.zasifrirano_geslo,
-            'skupne točke': self.skupne_tocke
+            'skupne_tocke': int(self.skupne_tocke)
         }
     
     def shrani_stanje(self, ime_datoteke):
@@ -49,11 +49,13 @@ class Igra1:
     def __init__(self, pravilni):
         self.pravilni = pravilni
 
-    def pridobi_drzave(slovar):
+
+    
+    @classmethod
+    def pridobi_drzave(cls, slovar):
         seznam_drzav = list(slovar.keys())
         stevilo_drzav = len(seznam_drzav)
         nabor = []
-        koncni_nabor = []
         pravilne_drzave = []
         while len(seznam_drzav) > 10:
             a = random.randint(0, stevilo_drzav -1)
@@ -73,13 +75,9 @@ class Igra1:
             random.shuffle(nabor_moznosti)
             nabor.append(nabor_moznosti)
             pravilne_drzave.append(drzava)
-        for sez in nabor:
-            sez1 = list(zip(ascii_lowercase, sez))
-            koncni_nabor.append(sez1)
-        koncni_nabor.append(pravilne_drzave)
-        return koncni_nabor
+        
 
-
+        return (nabor, pravilne_drzave)
 
 
 class Igra2:

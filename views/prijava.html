@@ -1,0 +1,55 @@
+<!doctype html>
+%rebase('base.html')
+
+<div class="container">
+    <div class="row top-buffer">
+        <div class="col-lg-12">
+            <h4 class="display-4">Prijava</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <form method="POST">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color: #aaa3ce; opacity: 0.8;"><b>Uporabnisko ime</b></span>
+            </div>
+            <input type="text" class="form-control" name="uporabnisko_ime" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color: #aaa3ce; opacity: 0.8;"><b>Geslo</b></span>
+            </div>
+            <input type="password" class="form-control" name="geslo" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <button class="btn btn-outline-dark" type="submit"><b>Prijava</b></button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row top-buffer">
+        <div class="col-lg-12">
+            <h4 class="display-4">Registracija</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <form method="POST">
+        <input type="hidden" name="nov_racun">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color: #aaa3ce; opacity: 0.8;"><b>Uporabnisko ime</b></span>
+            </div>
+            <input type="text" class="form-control" name="uporabnisko_ime" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color: #aaa3ce; opacity: 0.8;"><b>Geslo</b></span>
+            </div>
+            <input type="password" class="form-control" name="geslo" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <button class="btn btn-outline-dark" type="submit"><b>Registracija</b></button>
+    </form>
+</div>

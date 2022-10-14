@@ -1,8 +1,8 @@
 import bottle
-from datetime import *
 import random
 import os
 import hashlib
+from bottle import error
 from model import Uporabnik, Kviz, Igra1, Igra2
 
 uporabniki = {}
@@ -16,7 +16,7 @@ for ime_datoteke in os.listdir('uporabniki'):
 def trenutni_uporabnik():
     uporabnisko_ime = bottle.request.get_cookie('uporabnisko_ime', secret=skrivnost)
     if uporabnisko_ime is None:
-        bottle.redirect('/')
+        bottle.redirect('/prijava/')
     return uporabniki[uporabnisko_ime]
 
 # se ne shranjenemu uporabniku doda novo zbirko, shranjenemu pa vrne svojo zbirko
@@ -31,9 +31,13 @@ def shrani_trenutnega_uporabnika():
 @bottle.get('/')
 def osnovna_stran():
     shrani_trenutnega_uporabnika()
-    return bottle.template('osnovna_stran.html')
+    return bottle.redirect('/navodila/')
 
-@bottle.post('/')
+@bottle.get('/prijava/')
+def prijava_get():
+    return bottle.template('prijava.html')
+
+@bottle.post('/prijava/')
 def prijava_post():
     uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
     geslo = bottle.request.forms.getunicode('geslo')
@@ -49,16 +53,26 @@ def prijava_post():
     bottle.response.set_cookie('uporabnisko_ime', uporabnik.uporabnisko_ime, path='/', secret=skrivnost)
     bottle.redirect('/')
 
-@bottle.get('/')
-def osnovna_stran():
-    return bottle.template('osnovna_stran.html')
+@bottle.post('/odjava/')
+def odjava():
+    bottle.response.delete_cookie('uporabnisko_ime', path='/')
+    bottle.redirect('/')
 
 @bottle.get('/navodila/')
 def prva_stran():
     return bottle.template('prva_stran.html')
 
+@bottle.post('/level1/')
+def level1_post():
+    bottle.redirect('/level1/')
+
+@bottle.get('/level1/')
+def level1():
+    return bottle.template('level1.html')
 
 
-
+@error(500)
+def error500(e):
+    return bottle.template('napaka.html')
 
 bottle.run(debug=True, reloader=True)

@@ -1,5 +1,9 @@
 <!doctype html>
 % rebase('base.html')
+%import os
+%from model import Uporabnik
+
+
 <div style="text-align:center">
 <h5 class="display-4">Pozdravljeni!</h5>
 </div>
@@ -9,34 +13,34 @@
 </p>
 
 <div style="text-align:center">
-<table>
-    <tr>
-        <th>Uporabnik</th>
-        <th>Število točk</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
+<table class="table table-bordered">
+    <thead style="background-color: #aaa3ce;">
+        <tr>
+            <th>Uporabnik</th>
+            <th>Število točk</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    %seznam = []
+    %for ime_datoteke in os.listdir('uporabniki'):
+        %uporabnik = Uporabnik.nalozi_stanje(os.path.join('uporabniki', ime_datoteke))
+        %seznam.append((uporabnik.uporabnisko_ime, uporabnik.skupne_tocke))
+    %end
+    %seznam.sort(key=lambda y: y[1], reverse=True)
+    %for ime, tocke in seznam:
+        <tr>
+            <td>{{ime}}</td>
+            <td>{{tocke}}</td>
+        </tr>
+    %end
+    </tbody>
 </table>
 </div>
 
 <div style="text-align:center">
-<button type="button" class="btn btn-success">Začni igro</button>
+    <form method="POST" action="/level1/">
+        <button type="submit" class="btn btn-success">Začni igro</button>
+    </form>
+
 </div>
