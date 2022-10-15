@@ -19,13 +19,13 @@ def trenutni_uporabnik():
         bottle.redirect('/prijava/')
     return uporabniki[uporabnisko_ime]
 
-# se ne shranjenemu uporabniku doda novo zbirko, shranjenemu pa vrne svojo zbirko
-def zbirka_uporabnika():
-    return trenutni_uporabnik().zbirka
 
 def shrani_trenutnega_uporabnika():
     uporabnik = trenutni_uporabnik()
     uporabnik.shrani_stanje(os.path.join('uporabniki', f'{uporabnik.uporabnisko_ime}.json'))
+
+
+
 
 
 @bottle.get('/')
@@ -45,7 +45,7 @@ def prijava_post():
     h.update(geslo.encode(encoding='utf-8'))
     zasifrirano_geslo = h.hexdigest()
     if 'nov_racun' in bottle.request.forms and uporabnisko_ime not in uporabniki:
-        uporabnik = Uporabnik(uporabnisko_ime, zasifrirano_geslo,0)
+        uporabnik = Uporabnik(uporabnisko_ime, zasifrirano_geslo, 0)
         uporabniki[uporabnisko_ime] = uporabnik
     else:
         uporabnik = uporabniki[uporabnisko_ime]
@@ -60,24 +60,78 @@ def odjava():
 
 @bottle.get('/navodila/')
 def prva_stran():
-    return bottle.template('prva_stran.html')
+    shrani_trenutnega_uporabnika()
+    uporabnik=trenutni_uporabnik()
+    return bottle.template('prva_stran.html', uporabnik = uporabnik)
 
 @bottle.post('/level1/')
 def level1_post():
+    shrani_trenutnega_uporabnika()
     bottle.redirect('/level1/')
 
 @bottle.get('/level1/')
 def level1():
+    uporabnik=trenutni_uporabnik()
     igra1 = Igra1(0, [], [], [])
     igra1.pridobi_drzave()
+    uporabnik.igra1 = igra1
     return bottle.template('level1.html', igra1=igra1)
 
-@bottle.post('/odgovor/<igra1>/<drzava>/')
-def preveri_odgovor(igra1, drzava):
-    izbrani_odgovor = bottle.request.forms.getunicode('odgovor')
-    if izbrani_odgovor == drzava:
-        igra1.pravilni += 1
-    bottle.redirect('/igra1/')
+@bottle.post('/odgovor/')
+def preveri_odgovor():
+    uporabnik = trenutni_uporabnik()
+    igra1 = uporabnik.igra1
+    for i in range(10):
+        str_i = str(i)
+        izbrani_odgovor = bottle.request.forms.getunicode(str_i)
+        if izbrani_odgovor == igra1.pravilne_drzave[i]:
+            uporabnik.igra1.pravilni += 1
+            uporabnik.skupne_tocke += 1
+    shrani_trenutnega_uporabnika()
+    if igra1.pravilni > 8:
+        bottle.redirect('/level2/')
+    bottle.redirect('/intermezzo/')
+
+@bottle.get('/level2/')
+def level2():
+    uporabnik = trenutni_uporabnik()
+    igra2 = Igra2(0)
+    igra2.pridobi_drzave()
+    uporabnik.igra2 = igra2
+    return bottle.template('level2.html', igra2=igra2)
+
+@bottle.post('/odgovor2/')
+def preveri_odgovor2():
+    uporabnik = trenutni_uporabnik()
+    #igra2 = uporabnik.igra2
+    for i in range(10):
+        str_i = str(i)
+        vpisani_odgovor = bottle.request.forms.getunicode(str_i)
+        if vpisani_odgovor.upper() == uporabnik.igra2.seznam_mest[i]:
+            uporabnik.igra2.pravilni += 1
+            uporabnik.skupne_tocke += 1
+    shrani_trenutnega_uporabnika()
+    bottle.redirect('/intermezzo2/')
+
+@bottle.get('/intermezzo/')
+def intermezzo():
+    uporabnik = trenutni_uporabnik()
+    return bottle.template('intermezzo.html', uporabnik=uporabnik)
+
+@bottle.post('/intermezzo/')
+def intermezzo_post():
+    shrani_trenutnega_uporabnika()
+    bottle.redirect('/navodila/')
+
+@bottle.get('/intermezzo2/')
+def intermezzo_2():
+    uporabnik = trenutni_uporabnik()
+    return bottle.template('intermezzo2.html', uporabnik=uporabnik)
+
+@bottle.post('/intermezzo2/')
+def intermezzo_post():
+    shrani_trenutnega_uporabnika()
+    bottle.redirect('/navodila/')
 
 
 @error(500)

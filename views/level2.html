@@ -1,0 +1,33 @@
+<!doctype html>
+% rebase('base.html')
+
+<div style="text-align:center">
+    <h1>LEVEL 2</h1>
+</div>
+    
+<div style="text-align:center">
+    <p>
+        Med štirimi možnimi odgovori glavnemu mestu določite pripadajočo državo. 
+    </p>
+</div>
+
+<form action="/odgovor2/" method="POST" id="odgovor2-form">
+    %for i in range(10):
+        %drzava = igra2.seznam_drzav[i]    
+        <div class="container">
+            <table class="table">
+                <tr>
+                    <td style="width: 30%">{{drzava}}</td>
+                    <td>
+                        <input type="text" name="{{i}}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </td>
+                </tr>
+    %end
+    
+            </table>
+        </div>
+        <div class="container">
+            <button class="btn btn-outline-dark" type="submit" name="potrdi" id="potrdi">Potrdi</button>
+        </div>
+    
+    </form>

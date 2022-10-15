@@ -1,0 +1,17 @@
+<!doctype html>
+% rebase('base.html')
+% from model import Igra1, Igra2, Kviz
+%import json
+
+
+<div style="text-align:center">
+    <h1>INTERMEZZO</h1>
+</div>
+
+Št skupnih točk je {{uporabnik.igra2.pravilni + uporabnik.igra1.pravilni}}.
+
+<div class="container">
+    <form action="/intermezzo2/" method="POST">
+        <button class="btn btn-outline-dark" type="submit" name="zacetek" id="zacetek">Na začetno stran</button>
+    </form>
+</div>

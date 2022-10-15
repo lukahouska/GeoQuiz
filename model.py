@@ -8,6 +8,8 @@ class Uporabnik:
         self.uporabnisko_ime = uporabnisko_ime
         self.zasifrirano_geslo = zasifrirano_geslo
         self.skupne_tocke = skupne_tocke
+        self.igra1 = Igra1(0, [], [], [])
+        self.igra2 = Igra2(0)
 
     def v_slovar(self):
         return {
@@ -28,6 +30,7 @@ class Uporabnik:
             uporabnisko_ime = slovar_stanja['uporabnisko_ime']
             zasifrirano_geslo = slovar_stanja['zasifrirano_geslo']
             skupne_tocke = slovar_stanja['skupne_tocke']
+            #trenutna_igra = Igra1(0, [], [], [])
             return cls(uporabnisko_ime, zasifrirano_geslo, skupne_tocke)
 
     def preveri_geslo(self, zasifrirano_geslo):
@@ -92,24 +95,30 @@ class Igra1:
             #self.pravilne_drzave.extend(pravilne_drzave)
             #self.nabori_drzav.extend(nabor)
 
-igra1 = Igra1(0, [], [], [])
-igra1.pridobi_drzave()
+
 
 class Igra2:
     def __init__(self, pravilni):
         self.pravilni = pravilni
+        self.seznam_drzav = []
+        self.seznam_mest = []
 
-    def pridobi_drzave(slovar):
-        seznam_drzav = list(slovar.keys())
-        stevilo_drzav = len(seznam_drzav)
-        while len(seznam_drzav) > 10:
-            a = random.randint(0, stevilo_drzav -1)
-            seznam_drzav.pop(a)
-            stevilo_drzav -= 1
-        return seznam_drzav
+    def pridobi_drzave(self):
+        with open('slovar_drzav.json', 'r', encoding='utf-8') as datoteka:
+            slovar = json.load(datoteka)
+            seznam_drzav = list(slovar.keys())
+            stevilo_drzav = len(seznam_drzav)
+            while len(seznam_drzav) > 10:
+                a = random.randint(0, stevilo_drzav -1)
+                seznam_drzav.pop(a)
+                stevilo_drzav -= 1
+            self.seznam_drzav.extend(seznam_drzav)
+            seznam_mest = [slovar[d] for d in seznam_drzav]
+            self.seznam_mest = seznam_mest
+
 
     
-    def preveri_odgovor(self, odgovor, slovar_drzav, drzava):
+    def preveri_odgovor(odgovor, slovar_drzav, drzava):
         odgovor = odgovor.upper()
         if odgovor == slovar_drzav[drzava]:
             return True

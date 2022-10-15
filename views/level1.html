@@ -19,6 +19,7 @@
 
 
 
+<form action="/odgovor/" method="POST" id="odgovor-form">
 %for i in range(10):
     %mesto = igra1.mesta[i]
     %sez_odg = igra1.nabori_drzav[i]
@@ -27,18 +28,22 @@
         <table class="table">
             <tr>
                 <td style="width: 30%">{{mesto}}</td>
-                <form action="/odgovor/{{igra1}}/{{drzava}}/" method="POST" id="odgovor-form">
                 <td style="text-align: left">
                     %for drzava in sez_odg:
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="odgovor" id="inlineRadio1" value="{{drzava}}">
+                            <input class="form-check-input" type="radio" name="{{i}}" id="inlineRadio1" value="{{drzava}}">
                             <label class="form-check-label" for="inlineRadio1">{{drzava}}</label>
                         </div>
                     %end
                 </td>
-                </form>
             </tr>
+%end
+
         </table>
     </div>
-%end
+    <div class="container">
+        <button class="btn btn-outline-dark" type="submit" name="potrdi" id="potrdi">Potrdi</button>
+    </div>
+
+</form>
     
