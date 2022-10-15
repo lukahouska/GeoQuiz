@@ -46,39 +46,54 @@ class Kviz:
 
 
 class Igra1:
-    def __init__(self, pravilni):
+    def __init__(self, pravilni, mesta, pravilne_drzave, nabori_drzav):
         self.pravilni = pravilni
-
-
-    
-    @classmethod
-    def pridobi_drzave(cls, slovar):
-        seznam_drzav = list(slovar.keys())
-        stevilo_drzav = len(seznam_drzav)
-        nabor = []
-        pravilne_drzave = []
-        while len(seznam_drzav) > 10:
-            a = random.randint(0, stevilo_drzav -1)
-            seznam_drzav.pop(a)
-            stevilo_drzav -= 1
-        for drzava in seznam_drzav:
-            nabor_moznosti = [drzava]
-            seznam_drzav1 = list(slovar.keys())
-            stevilo_drzav1 = len(seznam_drzav1)
-            a = seznam_drzav1.index(drzava)
-            seznam_drzav1.pop(a)
-            while len(seznam_drzav1) > 3:
-                b = random.randint(0, len(seznam_drzav1) -2)
-                seznam_drzav1.pop(b)
-                stevilo_drzav1 -= 1
-            nabor_moznosti.extend(seznam_drzav1)
-            random.shuffle(nabor_moznosti)
-            nabor.append(nabor_moznosti)
-            pravilne_drzave.append(drzava)
+        self.mesta = mesta
+        self.pravilne_drzave = pravilne_drzave
+        self.nabori_drzav = nabori_drzav
+   
+    def pridobi_drzave(self):
+        with open('slovar_drzav.json', 'r', encoding='utf-8') as datoteka:
+            slovar = json.load(datoteka)
+            seznam_drzav = list(slovar.keys())
+            stevilo_drzav = len(seznam_drzav)
         
+            #nabor = []
+            #pravilne_drzave = []
+            while len(seznam_drzav) > 10:
+                a = random.randint(0, stevilo_drzav -1)
+                seznam_drzav.pop(a)
+                stevilo_drzav -= 1
+            for drzava in seznam_drzav:
+                self.pravilne_drzave.append(drzava)
+                mesto = slovar[drzava]
+                self.mesta.append(mesto)
+                seznam_drzav1 = list(slovar.keys())
+                stevilo_drzav1 = len(seznam_drzav1)
 
-        return (nabor, pravilne_drzave)
+                nabor_moznosti = [drzava]
 
+                a = seznam_drzav1.index(drzava)
+                seznam_drzav1.pop(a)
+                while len(seznam_drzav1) > 3:
+                    b = random.randint(0, len(seznam_drzav1) -2)
+                    seznam_drzav1.pop(b)
+                    stevilo_drzav1 -= 1
+                nabor_moznosti.extend(seznam_drzav1)
+                random.shuffle(nabor_moznosti)
+                #nabor.append(nabor_moznosti)
+                self.nabori_drzav.append(nabor_moznosti)
+                #pravilne_drzave.append(drzava)
+                
+                
+
+            #sez_mesta = [slovar[d] for d in pravilne_drzave]
+            #self.mesta.extend(sez_mesta)
+            #self.pravilne_drzave.extend(pravilne_drzave)
+            #self.nabori_drzav.extend(nabor)
+
+igra1 = Igra1(0, [], [], [])
+igra1.pridobi_drzave()
 
 class Igra2:
     def __init__(self, pravilni):

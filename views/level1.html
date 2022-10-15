@@ -1,10 +1,9 @@
 <!doctype html>
 % rebase('base.html')
 % from model import Igra1, Igra2, Kviz
+%import json
 
-%with open('slovar_drzav.json', 'r') as datoteka:
-    % slovar_drzav = datoteka.read()
-    % seznam_naborov, pravilne = Igra1.pridobi_drzave(slovar_drzav)
+
 
 
 <div style="text-align:center">
@@ -13,18 +12,33 @@
 
 <div style="text-align:center">
 <p>
-    Med štirimi možnimi odgovori glavnemu mestu določite pripadajočo državo. Vtipkajte le črko pred vašim odgovorom.
+    Med štirimi možnimi odgovori glavnemu mestu določite pripadajočo državo. 
 </p>
 </div>
 
+
+
+
 %for i in range(10):
-    %pravilna_drzava = pravilne[i]
-    %mesto = slovar['pravilna_drzava']
-<div class="container">
-    <table>
-        <tr>
-            <td>{{mesto}}</td>
-        </tr>
-    </table>
+    %mesto = igra1.mesta[i]
+    %sez_odg = igra1.nabori_drzav[i]
+    %drzava = igra1.pravilne_drzave[i]    
+    <div class="container">
+        <table class="table">
+            <tr>
+                <td style="width: 30%">{{mesto}}</td>
+                <form action="/odgovor/{{igra1}}/{{drzava}}/" method="POST" id="odgovor-form">
+                <td style="text-align: left">
+                    %for drzava in sez_odg:
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="odgovor" id="inlineRadio1" value="{{drzava}}">
+                            <label class="form-check-label" for="inlineRadio1">{{drzava}}</label>
+                        </div>
+                    %end
+                </td>
+                </form>
+            </tr>
+        </table>
+    </div>
+%end
     
-</div>

@@ -68,7 +68,16 @@ def level1_post():
 
 @bottle.get('/level1/')
 def level1():
-    return bottle.template('level1.html')
+    igra1 = Igra1(0, [], [], [])
+    igra1.pridobi_drzave()
+    return bottle.template('level1.html', igra1=igra1)
+
+@bottle.post('/odgovor/<igra1>/<drzava>/')
+def preveri_odgovor(igra1, drzava):
+    izbrani_odgovor = bottle.request.forms.getunicode('odgovor')
+    if izbrani_odgovor == drzava:
+        igra1.pravilni += 1
+    bottle.redirect('/igra1/')
 
 
 @error(500)
