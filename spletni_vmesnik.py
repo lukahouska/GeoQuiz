@@ -3,7 +3,7 @@ import random
 import os
 import hashlib
 from bottle import error
-from model import Uporabnik, Kviz, Igra1, Igra2
+from model import Uporabnik, Igra1, Igra2
 
 uporabniki = {}
 
