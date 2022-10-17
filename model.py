@@ -41,13 +41,6 @@ class Uporabnik:
 
 
 
-
-
-class Kviz:
-    def __init__(self, skupne_tocke):
-        self.skupne_tocke = skupne_tocke
-
-
 class Igra1:
     def __init__(self, pravilni, mesta, pravilne_drzave, nabori_drzav):
         self.pravilni = pravilni
