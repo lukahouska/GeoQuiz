@@ -5,12 +5,13 @@
 
 
 <div style="text-align:center">
-    <h1>INTERMEZZO</h1>
+    <h1>Čestitamo!</h1>
 </div>
-
-Št skupnih točk je {{uporabnik.igra2.pravilni + uporabnik.igra1.pravilni}}.
-
-<div class="container">
+<h4>Število točk, ki ste jih prejeli v levelu 1: {{uporabnik.igra1.pravilni}}<br>
+Skupno število točk: {{uporabnik.igra2.pravilni + uporabnik.igra1.pravilni}}<br>
+Na prvi strani si lahko pogledate na katero mesto ste uvrščeni med uporabniki.
+</h4>
+<div class="container" style="text-align:center">
     <form action="/intermezzo2/" method="POST">
         <button class="btn btn-outline-dark" type="submit" name="zacetek" id="zacetek">Na začetno stran</button>
     </form>
