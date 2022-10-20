@@ -2,15 +2,33 @@
 % rebase('base.html')
 % from model import Igra1, Igra2
 %import json
+%import numpy
 
 
 <div style="text-align:center">
     <h1>Čestitamo!</h1>
 </div>
-<h4>Število točk, ki ste jih prejeli v levelu 1: {{uporabnik.igra1.pravilni}}<br>
-Skupno število točk: {{uporabnik.igra2.pravilni + uporabnik.igra1.pravilni}}<br>
-Na prvi strani si lahko pogledate na katero mesto ste uvrščeni med uporabniki.
+
+% skupne_tocke = uporabnik.igra2.pravilni + uporabnik.igra1.pravilni
+% if numpy.less(skupne_tocke, 10):
+<h4 style="text-align:center">
+    Očitno geografija ni vaše področje.<br>
+    Skupno število točk: {{skupne_tocke}}<br>
+    Na prvi strani si lahko pogledate na katero mesto vas to uvršča.
 </h4>
+%elif numpy.less(skupne_tocke, 15):
+<h4 style="text-align:center">
+    Soliden rezultat vendar zmorete bolje. <br>
+    Skupno število točk: {{skupne_tocke}}<br>
+    Na prvi strani si lahko pogledate na katero mesto vas to uvršča.
+</h4>
+%else:
+<h4 style="text-align:center">
+    Odličen rezultat!<br>
+    Skupno število točk: {{skupne_tocke}}<br>
+    Na prvi strani si lahko pogledate na katero mesto vas to uvršča.
+</h4>
+%end
 <div class="container" style="text-align:center">
     <form action="/intermezzo2/" method="POST">
         <button class="btn btn-outline-dark" type="submit" name="zacetek" id="zacetek">Na začetno stran</button>

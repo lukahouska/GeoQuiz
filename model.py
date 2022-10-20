@@ -30,7 +30,6 @@ class Uporabnik:
             uporabnisko_ime = slovar_stanja['uporabnisko_ime']
             zasifrirano_geslo = slovar_stanja['zasifrirano_geslo']
             skupne_tocke = slovar_stanja['skupne_tocke']
-            #trenutna_igra = Igra1(0, [], [], [])
             return cls(uporabnisko_ime, zasifrirano_geslo, skupne_tocke)
 
     def preveri_geslo(self, zasifrirano_geslo):
