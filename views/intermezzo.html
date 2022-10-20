@@ -1,10 +1,16 @@
 <!doctype html>
 % rebase('base.html')
 
+<div class="container">
+
+</div>
+
+
 
 <h4 style="text-align:center">Pravilno ste odgovorili na {{uporabnik.igra1.pravilni}}/10 vprašanj. To na žalost ni dovolj za naslednji nivo. Na prvi strani si lahko pogledate na katero mesto ste uvrščeni med uporabniki.</h4>
 
-<div class="container" style="text-align:center">
+<div class="container" style="text-align:center" >
+
     <form action="/intermezzo/" method="POST">
         <button class="btn btn-outline-dark" type="submit" name="zacetek" id="zacetek">Na začetno stran</button>
     </form>
